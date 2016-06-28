@@ -31,4 +31,23 @@ account_token = '********************************'
 secret_key = '********************************'
 
 wrapper = ChartMogulMetrics(account_token, secret_key)
+
+wrapper.get_metric('mrr', '2016-06-01', '2016-06-10')
+```
+
+## Current Metrics
+
+- `mrr`: Retrieves the Monthly Recurring Revenue (MRR), for the specified time period.
+- `arr`: Retrieves the Annualized Run Rate (ARR), for the specified time period.
+- `arpa`: Retrieves the Average Revenue Per Account (ARPA), for the specified time period.
+- `asp`: Retrieves the Average Sale Price (ASP), for the specified time period.
+- `customer-count`: Retrieves the number of active customers, for the specified time period.
+- `customer-churn-rate`: Retrieves the Customer Churn Rate, for the specified time period.
+- `mrr-churn-rate`: Retrieves the Net MRR Churn Rate, for the specified time period.
+- `ltv`: Retrieves the Customer Lifetime Value (LTV), for the specified time period.
+
+Is also possible to get a summary for a time-period:
+
+```python
+wrapper.get_summary('2016-06-01', '2016-06-10')
 ```

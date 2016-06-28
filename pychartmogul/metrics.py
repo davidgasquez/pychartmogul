@@ -1,9 +1,14 @@
+"""Python ChartMogul Metrics API Wrapper
+
+This file implements a simple wrapper around the ChartMogul metrics API.
+"""
+
 import requests
 from .utils import response_to_dataframe
 
 
-class ChartmogulMetrics:
-    """Metrics API Wrapper"""
+class ChartMogulMetrics:
+    """Metrics API Wrapper Class"""
 
     def __init__(self, account_token=None, secret_key=None):
         self.account_token = account_token
@@ -39,5 +44,7 @@ class ChartmogulMetrics:
         endpoint = 'https://api.chartmogul.com/v1/metrics/all'
         response = requests.get(endpoint, auth=self.auth, params=payload)
         data = response_to_dataframe(response)
+
+        # TODO: Transform columns to $
 
         return data

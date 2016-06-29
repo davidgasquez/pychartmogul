@@ -45,6 +45,7 @@ class ChartMogulMetrics:
         response = requests.get(endpoint, auth=self.auth, params=payload)
         data = response_to_dataframe(response)
 
-        # TODO: Transform columns to $
+        # Transform columns to dollars
+        data[['mrr', 'arr', 'asp', 'arpa', 'ltv']] /= 100
 
         return data

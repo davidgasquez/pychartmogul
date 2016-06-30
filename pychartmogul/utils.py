@@ -26,16 +26,16 @@ def convert_to_dollars(data):
     return data
 
 
-def response_to_dataframe(data, in_dollars=False):
+def response_to_dataframe(data, date_as_index=True, in_dollars=False):
     """Transform a request response into a dataframe with some custom
     transformations.
     """
     # Get the entries
-    columns = sorted(data['entries'][0].keys())
-    result = json_normalize(data['entries'], meta=columns)
+    column_names = sorted(data['entries'][0].keys())
+    result = json_normalize(data['entries'], meta=column_names)
 
     # Set date as index
-    if 'date' in result.columns:
+    if 'date' in result.columns and date_as_index:
         result.set_index('date', inplace=True)
 
     # Convert to dollars numeric columns(ChartMogul gives the metrics in cents)

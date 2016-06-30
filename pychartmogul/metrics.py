@@ -4,8 +4,17 @@ This file implements a simple wrapper around the ChartMogul metrics API.
 """
 
 import requests
-from .utils import response_to_dataframe
 
+AVALIABLE_METRICS = [
+    'mrr',
+    'arr'
+    'arpa'
+    'asp'
+    'customer-count'
+    'customer-churn-rate'
+    'mrr-churn-rate'
+    'ltv'
+]
 
 class ChartMogulMetrics:
     """Metrics API Wrapper Class"""
@@ -14,6 +23,10 @@ class ChartMogulMetrics:
         self.account_token = account_token
         self.secret_key = secret_key
         self.auth = (account_token, secret_key)
+
+    def _check_metric(self, metric):
+        if metric not in AVALIABLE_METRICS:
+            raise ValueError("Metric not avaliable")
 
     def get_metric(self, metric, start_date, end_date,
                    interval=None, geo=None, plans=None):
@@ -25,11 +38,12 @@ class ChartMogulMetrics:
             'plans': plans
         }
 
+        self._check_metric(metric)
         endpoint = 'https://api.chartmogul.com/v1/metrics/' + metric
         response = requests.get(endpoint, auth=self.auth, params=payload)
-        convert = metric in ['mrr', 'arr', 'asp', 'arpa', 'ltv']
-        data = response_to_dataframe(response, convert_to_dollars=convert)
-        return data
+        response.raise_for_status()
+
+        return response.json()
 
     def get_summary(self, start_date, end_date,
                     interval=None, geo=None, plans=None):
@@ -43,9 +57,6 @@ class ChartMogulMetrics:
 
         endpoint = 'https://api.chartmogul.com/v1/metrics/all'
         response = requests.get(endpoint, auth=self.auth, params=payload)
-        data = response_to_dataframe(response)
+        response.raise_for_status()
 
-        # Transform columns to dollars
-        data[['mrr', 'arr', 'asp', 'arpa', 'ltv']] /= 100
-
-        return data
+        return response.json()

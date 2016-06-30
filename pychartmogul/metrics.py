@@ -26,7 +26,7 @@ class ChartMogulMetrics:
 
     def _check_metric(self, metric):
         if metric not in AVALIABLE_METRICS:
-            raise ValueError("Metric not avaliable")
+            raise ValueError("Metric not available")
 
     def get_metric(self, metric, start_date, end_date,
                    interval=None, geo=None, plans=None):

@@ -30,9 +30,9 @@ from pychartmogul.metrics import ChartMogulMetrics
 account_token = '********************************'
 secret_key = '********************************'
 
-wrapper = ChartMogulMetrics(account_token, secret_key)
+metrics_api = ChartMogulMetrics(account_token, secret_key)
 
-wrapper.get_metric('mrr', '2016-06-01', '2016-06-10')
+metrics_api.get_metric('mrr', '2016-06-01', '2016-06-10')
 ```
 
 ## Current Metrics
@@ -49,5 +49,5 @@ wrapper.get_metric('mrr', '2016-06-01', '2016-06-10')
 Is also possible to get a summary for a time-period:
 
 ```python
-wrapper.get_summary('2016-06-01', '2016-06-10')
+metrics_api.get_summary('2016-06-01', '2016-06-10')
 ```

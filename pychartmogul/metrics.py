@@ -16,13 +16,13 @@ AVALIABLE_METRICS = [
     'ltv'
 ]
 
-class ChartMogulMetrics:
+class ChartMogulMetricsClient:
     """Metrics API Wrapper Class"""
 
-    def __init__(self, account_token=None, secret_key=None):
-        self.account_token = account_token
-        self.secret_key = secret_key
+    def __init__(self, account_token=None, secret_key=None,
+                 base_url='https://api.chartmogul.com/v1/metrics/'):
         self.auth = (account_token, secret_key)
+        self.base_url = base_url
 
     def _check_metric(self, metric):
         if metric not in AVALIABLE_METRICS:
@@ -39,7 +39,7 @@ class ChartMogulMetrics:
         }
 
         self._check_metric(metric)
-        endpoint = 'https://api.chartmogul.com/v1/metrics/' + metric
+        endpoint = self.base_url + 'metrics/' + metric
         response = requests.get(endpoint, auth=self.auth, params=payload)
         response.raise_for_status()
 
@@ -55,7 +55,7 @@ class ChartMogulMetrics:
             'plans': plans
         }
 
-        endpoint = 'https://api.chartmogul.com/v1/metrics/all'
+        endpoint = self.base_url + 'metrics/all'
         response = requests.get(endpoint, auth=self.auth, params=payload)
         response.raise_for_status()
 

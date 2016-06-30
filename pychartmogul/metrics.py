@@ -39,7 +39,7 @@ class ChartMogulMetricsClient:
         }
 
         self._check_metric(metric)
-        endpoint = self.base_url + 'metrics/' + metric
+        endpoint = self.base_url + metric
         response = requests.get(endpoint, auth=self.auth, params=payload)
         response.raise_for_status()
 
@@ -55,7 +55,7 @@ class ChartMogulMetricsClient:
             'plans': plans
         }
 
-        endpoint = self.base_url + 'metrics/all'
+        endpoint = self.base_url + 'all'
         response = requests.get(endpoint, auth=self.auth, params=payload)
         response.raise_for_status()
 

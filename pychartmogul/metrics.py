@@ -22,7 +22,7 @@ class ChartMogulMetricsClient:
     """Metrics API Wrapper Class"""
 
     def __init__(self, account_token=None, secret_key=None,
-                 base_url='https://api.chartmogul.com/v1/metrics/'):
+                 base_url='https://api.chartmogul.com/v1/'):
         self.auth = (account_token, secret_key)
         self.base_url = base_url
 
@@ -53,7 +53,7 @@ class ChartMogulMetricsClient:
         }
 
         self._check_metric(metric)
-        endpoint = self.base_url + metric
+        endpoint = self.base_url + 'metrics/' + metric
         response = requests.get(endpoint, auth=self.auth, params=payload)
         response.raise_for_status()
 
@@ -71,7 +71,7 @@ class ChartMogulMetricsClient:
             'plans': plans
         }
 
-        endpoint = self.base_url + 'all'
+        endpoint = self.base_url + 'metrics/' + 'all'
         response = requests.get(endpoint, auth=self.auth, params=payload)
         response.raise_for_status()
 

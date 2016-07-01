@@ -4,17 +4,19 @@ This file implements a simple wrapper around the ChartMogul metrics API.
 """
 
 import requests
+from datetime import date
 
 AVALIABLE_METRICS = [
     'mrr',
-    'arr'
-    'arpa'
-    'asp'
-    'customer-count'
-    'customer-churn-rate'
-    'mrr-churn-rate'
+    'arr',
+    'arpa',
+    'asp',
+    'customer-count',
+    'customer-churn-rate',
+    'mrr-churn-rate',
     'ltv'
 ]
+
 
 class ChartMogulMetricsClient:
     """Metrics API Wrapper Class"""
@@ -28,8 +30,20 @@ class ChartMogulMetricsClient:
         if metric not in AVALIABLE_METRICS:
             raise ValueError("Metric not available")
 
-    def get_metric(self, metric, start_date, end_date,
+    def _check_dates(self, start_date, end_date):
+        """Transform datetimes into properly formatted dates."""
+        if isinstance(start_date, date):
+            start_date = start_date.strftime('%Y-%m-%d')
+
+        if isinstance(end_date, date):
+            end_date = end_date.strftime('%Y-%m-%d')
+
+        return start_date, end_date
+
+    def get_metric(self, metric, start_date, end_date=date.today(),
                    interval=None, geo=None, plans=None):
+        start_date, end_date = self._check_dates(start_date, end_date)
+
         payload = {
             'start-date': start_date,
             'end-date': end_date,
@@ -45,8 +59,10 @@ class ChartMogulMetricsClient:
 
         return response.json()
 
-    def get_summary(self, start_date, end_date,
+    def get_summary(self, start_date, end_date=date.today(),
                     interval=None, geo=None, plans=None):
+        start_date, end_date = self._check_dates(start_date, end_date)
+
         payload = {
             'start-date': start_date,
             'end-date': end_date,

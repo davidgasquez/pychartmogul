@@ -3,7 +3,7 @@ from .metrics import ChartMogulMetricsClient
 
 
 class ChartMogulClient:
-    """Metrics API Wrapper Class"""
+    """API Wrapper Class"""
 
     def __init__(self, account_token=None, secret_key=None,
                  base_uri='https://api.chartmogul.com/', version=1):

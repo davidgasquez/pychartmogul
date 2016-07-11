@@ -54,7 +54,12 @@ class ChartMogulMetricsClient:
 
         self._check_metric(metric)
         endpoint = self.base_url + 'metrics/' + metric
-        response = requests.get(endpoint, auth=self.auth, params=payload)
+
+        try:
+            response = requests.get(endpoint, auth=self.auth, params=payload)
+        except requests.exceptions.HTTPError:
+            response = requests.get(endpoint, auth=self.auth, params=payload)
+
         response.raise_for_status()
 
         return response.json()
@@ -72,7 +77,12 @@ class ChartMogulMetricsClient:
         }
 
         endpoint = self.base_url + 'metrics/' + 'all'
-        response = requests.get(endpoint, auth=self.auth, params=payload)
+
+        try:
+            response = requests.get(endpoint, auth=self.auth, params=payload)
+        except requests.exceptions.HTTPError:
+            response = requests.get(endpoint, auth=self.auth, params=payload)
+
         response.raise_for_status()
 
         return response.json()

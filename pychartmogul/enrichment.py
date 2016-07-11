@@ -22,7 +22,12 @@ class ChartMogulEnrichmentClient:
         }
 
         endpoint = self.base_url + 'customers'
-        response = requests.get(endpoint, auth=self.auth, params=payload)
+
+        try:
+            response = requests.get(endpoint, auth=self.auth, params=payload)
+        except requests.exceptions.HTTPError:
+            response = requests.get(endpoint, auth=self.auth, params=payload)
+
         response.raise_for_status()
 
         return response.json()
@@ -30,7 +35,12 @@ class ChartMogulEnrichmentClient:
     def get_customer(self, uuid):
 
         endpoint = self.base_url + 'customers/' + uuid
-        response = requests.get(endpoint, auth=self.auth)
+
+        try:
+            response = requests.get(endpoint, auth=self.auth)
+        except requests.exceptions.HTTPError:
+            response = requests.get(endpoint, auth=self.auth)
+
         response.raise_for_status()
 
         return response.json()

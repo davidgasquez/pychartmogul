@@ -25,7 +25,7 @@ module, you'll need an account token and a secret key to use it.
 To use the wrapper:
 
 ```python
-from pychartmogul.metrics import ChartMogulMetricsClient
+from pychartmogul.client import ChartMogulClient
 
 account_token = '********************************'
 secret_key = '********************************'

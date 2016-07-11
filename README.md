@@ -1,5 +1,6 @@
 # PyChartMogul
-Python wrapper for [ChartMogul API](https://dev.chartmogul.com/docs)
+
+Basic Python wrapper for [ChartMogul API](https://dev.chartmogul.com/docs)
 
 ## Installation
 You can use `pip` to install PyChartMogul.
@@ -36,7 +37,12 @@ client.metrics.get_metric('mrr', '2016-06-01', '2016-06-10')
 client.enrichment.list_customers()
 ```
 
-## Current Metrics
+## Features
+
+- Support for `datetime` instead of `str` dates.
+- Response parsing to Pandas DataFrame.
+
+#### Current Metrics
 
 - `mrr`: Retrieves the Monthly Recurring Revenue (MRR), for the specified time period.
 - `arr`: Retrieves the Annualized Run Rate (ARR), for the specified time period.
@@ -52,3 +58,8 @@ Is also possible to get a summary for a time-period:
 ```python
 client.metrics.get_summary('2016-06-01', '2016-06-10')
 ```
+
+## Roadmap
+
+- Custom number of `Timeout` retries.
+- Retrieve long periods splitting the initial request.

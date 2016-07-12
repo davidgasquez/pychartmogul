@@ -44,3 +44,16 @@ class ChartMogulEnrichmentClient:
         response.raise_for_status()
 
         return response.json()
+
+    def search_customers(self, email):
+
+        endpoint = self.base_url + 'customers/search?email=' + email
+
+        try:
+            response = requests.get(endpoint, auth=self.auth)
+        except requests.exceptions.HTTPError:
+            response = requests.get(endpoint, auth=self.auth)
+
+        response.raise_for_status()
+
+        return response.json()

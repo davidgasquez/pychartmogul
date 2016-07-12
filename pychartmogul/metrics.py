@@ -86,3 +86,27 @@ class ChartMogulMetricsClient:
         response.raise_for_status()
 
         return response.json()
+
+    def get_customer_subscriptions(self, customer):
+        endpoint = self.base_url + 'customers/' + customer + '/subscriptions'
+
+        try:
+            response = requests.get(endpoint, auth=self.auth)
+        except requests.exceptions.HTTPError:
+            response = requests.get(endpoint, auth=self.auth)
+
+        response.raise_for_status()
+
+        return response.json()
+
+    def get_customer_activities(self, customer):
+        endpoint = self.base_url + 'customers/' + customer + '/activities'
+
+        try:
+            response = requests.get(endpoint, auth=self.auth)
+        except requests.exceptions.HTTPError:
+            response = requests.get(endpoint, auth=self.auth)
+
+        response.raise_for_status()
+
+        return response.json()

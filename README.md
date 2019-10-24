@@ -1,5 +1,7 @@
 # PyChartMogul
 
+*NOTE*: This library is not mantained. [ChartMogul now has an official Python API](https://github.com/chartmogul/chartmogul-python). 
+
 Basic Python wrapper for [ChartMogul API](https://dev.chartmogul.com/docs)
 
 ## Installation
